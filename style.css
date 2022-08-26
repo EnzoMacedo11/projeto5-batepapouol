@@ -22,6 +22,24 @@
     height: 31px;
 }
 
+
+.menuParticipantes{
+    margin-top: 150px;
+    width: 100%;
+    height: 180px;
+    background-color: green;
+}
+.menuMensagens{
+    margin-top: 150px;
+    width: 100%;
+    height: 1600px;
+    background-color: yellow;
+}
+
+
+
+
+
 .menubot{
     position: fixed;
     bottom:0;
