@@ -34,26 +34,29 @@ function manterConexao(){
     console.log(manterConexao);
 }
 
-setInterval(manterConexao, 4500);
+setInterval(manterConexao, 4000);
 
 //Função para buscar as mensagens do servidor 
-
 const verMensagens = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
 verMensagens.then(buscarMensagens);
 
 function buscarMensagens(listaMensagens){
-    console.log("Mensagens Chegaram")
-    console.log(listaMensagens.data);
+    //console.log("Mensagens Chegaram")
+    //console.table(listaMensagens.data);
     menuMensagens = listaMensagens.data;
     renderizarMensagens();
 }
-console.log(verMensagens);
+setInterval(()=>{const verMensagens = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+verMensagens.then(buscarMensagens);}, 2000);
 
 //Função para renderizar as mensagens 
 
 function renderizarMensagens(){
     const ul = document.querySelector(".menuMensagens");
-    for(let i = 0; i < menuParticipantes.length;i++){
+    
+    ul.innerHTML = "";
+    
+    for(let i = 0; i < menuMensagens.length;i++){
 
         ul.innerHTML +=`<li>
         ${menuMensagens[i].time} ${menuMensagens[i].from} ${menuMensagens[i].text}
@@ -61,7 +64,40 @@ function renderizarMensagens(){
         </li>`;
        
     }
+    //console.log(renderizarMensagens); // Teste site
+    
 }
+//renderizarMensagens();
+//setInterval(renderizarMensagens, 5000);
+
+
+
+//Função para Enviar Mensagens
+
+function enviarMensagens(){
+    const textoMensagem = document.querySelector(".menubot textoDigitado")
+
+    Mensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",{
+        from: `${nome}`,
+	    to: "Todos",
+	    text: textoMensagem.value,
+	    type: "message"
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Bonus 
@@ -73,21 +109,24 @@ verParticipantes.then(verParticipantesDisponivel);
 
 function verParticipantesDisponivel(listaParticipantes){
     
-    console.log("dados chegaram")
-    console.log(listaParticipantes.data);
+    //console.log("dados chegaram")
+    //console.log(listaParticipantes.data);
     menuParticipantes = listaParticipantes.data;
     renderizarParticipantes();
+    //console.log(renderizarParticipantes)
 }
-console.log(verParticipantes)
 
-//setInterval(verParticipantesDisponivel, 2000)
+setInterval(()=>{const verParticipantes = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+verParticipantes.then(verParticipantesDisponivel);}, 2000);
 
 
 
-//Função para renderizar os participantes na tela
+//Função para renderizar os participantes na tela   
 
 function renderizarParticipantes(){
     const ul = document.querySelector(".menuParticipantes");
+    ul.innerHTML = "";
+
     for(let i = 0; i < menuParticipantes.length;i++){
 
         ul.innerHTML +=`<li>
@@ -97,3 +136,15 @@ function renderizarParticipantes(){
        
     }
 }
+
+
+/*function onOff(){
+    const ligar = document.querySelector('.AbaParticipantes');
+    
+        if ('.AbaParticipantes' == null) {
+            '.AbaParticipantes'.classList.add('ligado');
+        }
+         const clicarP = document.querySelector(ligar);
+        }
+
+        */
