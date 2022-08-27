@@ -30,7 +30,7 @@ function manterConexao(){
     const promisse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", {
         name: `${nome}`}
         )
-    promisse.then();
+        ;
     console.log(manterConexao);
 }
 
@@ -58,31 +58,32 @@ function renderizarMensagens(){
     
     for(let i = 0; i < menuMensagens.length;i++){
 
-        ul.innerHTML +=`<li>
+        ul.innerHTML +=`<li class="formatoMensagem">
         ${menuMensagens[i].time} ${menuMensagens[i].from} ${menuMensagens[i].text}
 
         </li>`;
        
     }
-    //console.log(renderizarMensagens); // Teste site
+    
     
 }
-//renderizarMensagens();
-//setInterval(renderizarMensagens, 5000);
-
 
 
 //Função para Enviar Mensagens
 
-function enviarMensagens(){
-    const textoMensagem = document.querySelector(".menubot textoDigitado")
+const textoMensagem = document.querySelector(".menubot textoDigitado")
+textoMensagem.then(enviarMensagens)
 
-    Mensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",{
+function enviarMensagens(){
+
+        const Mensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",{
         from: `${nome}`,
 	    to: "Todos",
 	    text: textoMensagem.value,
 	    type: "message"
     })
+
+    
 }
 
 
